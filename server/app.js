@@ -2,21 +2,17 @@ import express from 'express'
 import cors from 'cors'
 import 'dotenv/config'
 
+import authRouter from './routes/auth.js'
 
-import { query } from './db/postgres.js';
-
-// create the app
 const app = express()
-// it's nice to set the port number so it's always the same
-app.set('port', process.env.PORT || 3000);
-// set up some middleware to handle processing body requests
+app.set('port', process.env.PORT || 3000)
 app.use(express.json())
-// set up some midlleware to handle cors
 app.use(cors())
 
-// base route
+app.use('/auth', authRouter)
+
 app.get('/', (req, res) => {
-    res.send("Welcome to the Job Application Tracker API!!!")
+  res.send('Welcome to The Digital Garden API')
 })
 
 

@@ -1,10 +1,9 @@
 import 'dotenv/config'
 import { query } from './postgres.js'
-import { createHash } from 'crypto'
+import bcrypt from 'bcryptjs'
 
-// Simple sha256 placeholder — replace with bcrypt once you add it
 function hashPassword(plain) {
-  return createHash('sha256').update(plain).digest('hex')
+  return bcrypt.hashSync(plain, 10)
 }
 
 async function seed() {
@@ -22,7 +21,7 @@ async function seed() {
   // Users
   const usersResult = await query(`
     INSERT INTO users (full_name, email, password_hash, role) VALUES
-      ('Admin User',  'admin@garden.com', $1, 'admin'),
+      ('Admin User',   'admin@garden.com', $1, 'admin'),
       ('Egide Ntwari', 'egide@garden.com', $2, 'user'),
       ('Amos Mokaya',  'amos@garden.com',  $3, 'user')
     RETURNING id
@@ -31,38 +30,38 @@ async function seed() {
   const [adminId, egideId, amosId] = usersResult.rows.map(r => r.id)
   console.log('Users seeded')
 
-  // Posts
+  // Posts — each $n is a unique placeholder, no duplicates in the array
   const postsResult = await query(`
     INSERT INTO posts (user_id, content) VALUES
       ($1, 'Welcome to The Digital Garden. A calm space for your thoughts.'),
       ($2, 'Just shipped my first full-stack app. The feeling is indescribable.'),
       ($3, 'Reading about distributed systems. The CAP theorem never gets old.'),
-      ($2, 'Rainy days are perfect for deep work and good coffee.')
+      ($4, 'Rainy days are perfect for deep work and good coffee.')
     RETURNING id
   `, [adminId, egideId, amosId, egideId])
 
   const [post1, post2, post3, post4] = postsResult.rows.map(r => r.id)
   console.log('Posts seeded')
 
-  // Comments
+  // Comments — unique $n per value
   await query(`
     INSERT INTO comments (post_id, user_id, content) VALUES
       ($1, $2, 'Love this space already!'),
-      ($1, $3, 'Exactly the kind of place I needed.'),
-      ($2, $3, 'Congrats! What stack did you use?'),
-      ($3, $2, 'CAP theorem is brutal but so worth understanding.')
-  `, [post1, egideId, amosId, post2, amosId, post3, egideId])
+      ($3, $4, 'Exactly the kind of place I needed.'),
+      ($5, $6, 'Congrats! What stack did you use?'),
+      ($7, $8, 'CAP theorem is brutal but so worth understanding.')
+  `, [post1, egideId, post1, amosId, post2, amosId, post3, egideId])
   console.log('Comments seeded')
 
-  // Likes
+  // Likes — unique $n per value
   await query(`
     INSERT INTO likes (post_id, user_id) VALUES
       ($1, $2),
-      ($1, $3),
-      ($2, $3),
-      ($3, $2),
-      ($4, $3)
-  `, [post1, egideId, amosId, post2, amosId, post3, egideId, post4, amosId])
+      ($3, $4),
+      ($5, $6),
+      ($7, $8),
+      ($9, $10)
+  `, [post1, egideId, post1, amosId, post2, amosId, post3, egideId, post4, amosId])
   console.log('Likes seeded')
 
   console.log('Seed complete.')
