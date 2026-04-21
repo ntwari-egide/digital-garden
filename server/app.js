@@ -2,14 +2,18 @@ import express from 'express'
 import cors from 'cors'
 import 'dotenv/config'
 
-import authRouter from './routes/auth.js'
+import authRouter    from './routes/auth.js'
+import postsRouter   from './routes/posts.js'
+import commentsRouter from './routes/comments.js'
 
 const app = express()
 app.set('port', process.env.PORT || 3000)
 app.use(express.json())
 app.use(cors())
 
-app.use('/auth', authRouter)
+app.use('/auth',     authRouter)
+app.use('/posts',    postsRouter)
+app.use('/comments', commentsRouter)
 
 app.get('/', (req, res) => {
   res.send('Welcome to The Digital Garden API')
