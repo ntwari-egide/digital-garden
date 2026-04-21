@@ -7,9 +7,7 @@ const client = new Client({
   database: process.env.POSTGRES_DBNAME,
   user: process.env.POSTGRES_USERNAME,
   password: process.env.POSTGRES_PASSWORD,
-  ssl: {
-    rejectUnauthorized: false
-  }
+  ssl: process.env.POSTGRES_SSL === 'true' ? { rejectUnauthorized: false } : false
 })
 
 client.connect()
