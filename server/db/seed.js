@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import { query } from './postgres.js'
 import { createHash } from 'crypto'
 

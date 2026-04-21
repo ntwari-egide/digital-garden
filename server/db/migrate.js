@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import { query } from './postgres.js'
 
 async function migrate() {
