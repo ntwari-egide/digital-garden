@@ -1,0 +1,102 @@
+.auth-page {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: var(--space-6);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius);
+  padding: 0;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+/* Botanical header strip */
+.auth-card-header {
+  background: var(--color-navbar);
+  padding: var(--space-8) var(--space-8) var(--space-6);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative leaf shapes via pseudo-elements */
+.auth-card-header::before,
+.auth-card-header::after {
+  content: '🌿';
+  position: absolute;
+  font-size: 4rem;
+  opacity: 0.08;
+  pointer-events: none;
+  line-height: 1;
+}
+.auth-card-header::before { top: -8px; left: -8px; transform: rotate(-30deg); }
+.auth-card-header::after  { bottom: -8px; right: -8px; transform: rotate(150deg); }
+
+.auth-card-header h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  font-style: italic;
+  color: var(--color-navbar-text);
+  margin-bottom: var(--space-1);
+  position: relative;
+}
+
+.auth-logo-leaf {
+  font-style: normal;
+  margin-right: var(--space-2);
+}
+
+.auth-card-header .auth-subtitle {
+  font-size: var(--text-sm);
+  color: var(--color-navbar-muted);
+  position: relative;
+}
+
+/* Form body */
+.auth-card-body {
+  padding: var(--space-8);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.form-group label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.auth-form .btn-primary {
+  margin-top: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  font-size: var(--text-base);
+}
+
+.auth-footer {
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border-soft);
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}

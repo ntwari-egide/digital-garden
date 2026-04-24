@@ -1,0 +1,199 @@
+.comment-section {
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border-soft);
+}
+
+/* ── Compose form ── */
+
+.comment-form {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  margin-bottom: var(--space-5);
+}
+
+.comment-form textarea {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  min-height: 52px;
+  background: var(--color-surface-alt);
+  border-color: var(--color-border-soft);
+  flex: 1;
+}
+.comment-form textarea::placeholder {
+  font-style: italic;
+  color: var(--color-text-light);
+}
+
+.comment-submit-btn {
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  align-self: flex-end;
+  flex-shrink: 0;
+  transition: background-color 0.15s;
+}
+.comment-submit-btn:hover:not(:disabled) { background: var(--color-accent-hover); }
+.comment-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Thread ── */
+
+.comment-thread {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Single comment block ── */
+
+.comment-block {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-4) 0;
+}
+
+.comment-block + .comment-block {
+  border-top: 1px dashed var(--color-border-soft);
+}
+
+/* Leaf-tinted avatar */
+.comment-avatar {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--color-accent-light);
+  border: 1px solid #c0d9c4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.comment-body { flex: 1; min-width: 0; }
+
+.comment-meta-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-bottom: var(--space-1);
+}
+
+.comment-author {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.comment-time {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.comment-content {
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin-bottom: var(--space-2);
+}
+
+/* Action row: Reply | Delete */
+.comment-actions-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.comment-reply-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: color 0.12s;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.comment-reply-btn:hover { color: var(--color-accent); }
+
+.comment-delete-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: var(--text-xs);
+  color: var(--color-text-light);
+  cursor: pointer;
+  transition: color 0.12s;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.comment-delete-btn:hover { color: var(--color-danger); }
+
+/* ── Inline reply form ── */
+.reply-form-wrap {
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  background: var(--color-surface-alt);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-soft);
+}
+.reply-form-wrap .comment-form {
+  margin-bottom: 0;
+}
+.reply-form-wrap textarea {
+  background: var(--color-surface);
+  min-height: 44px;
+}
+
+/* ── Indented replies — vine border ── */
+.comment-replies {
+  margin-top: var(--space-2);
+  padding-left: var(--space-5);
+  border-left: 2px solid #b8d4bc;
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-replies .comment-block {
+  padding: var(--space-3) 0;
+}
+.comment-replies .comment-block + .comment-block {
+  border-top: 1px dashed var(--color-border-soft);
+}
+
+.comment-replies .comment-avatar {
+  width: 24px;
+  height: 24px;
+  font-size: 0.6rem;
+}
+
+/* ── States ── */
+.comment-loading {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  padding: var(--space-3) 0;
+  text-align: center;
+}
+
+.comment-empty {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+}

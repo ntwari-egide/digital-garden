@@ -1,26 +1,25 @@
-import {useState, useEffect} from 'react'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import ProtectedRoute from './components/auth/ProtectedRoute'
+import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
+import FeedPage from './pages/FeedPage'
+import AdminPage from './pages/AdminPage'
 
-
-function App() {
-  const [apiStatus, setAPIStatus] = useState()
-
-  useEffect(() => {
-    fetch('http://localhost:3000/up')
-    .then(res => res.json())
-    .then(result => {
-      console.log(result.status)
-      setAPIStatus(result)
-  })
-  }, [])
-
-  
+export default function App() {
   return (
-    <div>
-    <h1>To get started, begin editing SRC/App.js</h1>
-    {apiStatus ? <h2>Testing app end point: <div style={{color: apiStatus.status === 'up' ? 'green':'red'}}>{apiStatus.status}</div></h2>:null }
-    </div>
-  )
-   
-}
+    <Routes>
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
 
-export default App;
+      <Route element={<ProtectedRoute />}>
+        <Route path="/" element={<FeedPage />} />
+      </Route>
+
+      <Route element={<ProtectedRoute adminOnly />}>
+        <Route path="/admin" element={<AdminPage />} />
+      </Route>
+
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  )
+}

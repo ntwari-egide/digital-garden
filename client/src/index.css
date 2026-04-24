@@ -1,68 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500&display=swap');
+
+/* ── Garden palette ── */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* Backgrounds */
+  --color-bg:          #ede9df;   /* warm parchment */
+  --color-surface:     #faf8f3;   /* aged paper */
+  --color-surface-alt: #f3efe6;   /* slightly darker paper */
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* Borders */
+  --color-border:      #cfc6b2;   /* earth tan */
+  --color-border-soft: #e0d9cb;   /* lighter earth */
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
+  /* Text */
+  --color-text:        #251c0e;   /* dark espresso */
+  --color-text-muted:  #7a6a52;   /* warm mushroom */
+  --color-text-light:  #a8967c;   /* pale mushroom */
+
+  /* Accent — forest green */
+  --color-accent:      #3a6644;
+  --color-accent-hover:#2c5235;
+  --color-accent-light:#deeee2;
+  --color-accent-dim:  rgba(58, 102, 68, 0.12);
+
+  /* Navbar */
+  --color-navbar:      #1e3622;   /* deep forest */
+  --color-navbar-text: #cde4d1;   /* pale leaf cream */
+  --color-navbar-muted:#8aac8e;
+
+  /* Danger / warning */
+  --color-danger:      #a84530;   /* terracotta */
+  --color-danger-hover:#8e3826;
+  --color-warning:     #b87528;   /* amber */
+
+  /* Fonts */
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-display: 'Lora', Georgia, serif;
+
+  /* Type scale */
+  --text-xs:   0.75rem;
+  --text-sm:   0.8125rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.375rem;
+  --text-2xl:  1.75rem;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Shape */
+  --radius:    14px;
+  --radius-sm: 7px;
+  --radius-xs: 4px;
+
+  /* Shadow — warm tinted */
+  --shadow:    0 1px 4px rgba(60, 40, 10, 0.08), 0 0 0 1px rgba(60,40,10,0.04);
+  --shadow-md: 0 4px 16px rgba(60, 40, 10, 0.10), 0 0 0 1px rgba(60,40,10,0.04);
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; }
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  /* subtle paper texture via repeating gradient */
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(100,75,30,0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+  color: var(--color-accent);
+  text-decoration: none;
 }
 a:hover {
-  color: #535bf2;
+  color: var(--color-accent-hover);
+  text-decoration: underline;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+/* ── Inputs ── */
+input, textarea {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-4);
+  width: 100%;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  outline: none;
 }
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+input:focus, textarea:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-dim);
 }
+textarea { resize: none; line-height: 1.6; }
 
+/* ── Buttons ── */
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
   cursor: pointer;
-  transition: border-color 0.25s;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-4);
+  transition: background-color 0.15s ease, color 0.15s ease,
+              border-color 0.15s ease, opacity 0.15s ease;
 }
-button:hover {
-  border-color: #646cff;
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-primary {
+  background: var(--color-accent);
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 0.01em;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.btn-primary:hover:not(:disabled) { background: var(--color-accent-hover); }
+
+.btn-danger {
+  background: transparent;
+  color: var(--color-danger);
+  border: 1px solid var(--color-border);
+  font-size: var(--text-sm);
+}
+.btn-danger:hover:not(:disabled) {
+  background: var(--color-danger);
+  color: #fff;
+  border-color: var(--color-danger);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* ── Utility ── */
+.error-msg {
+  color: var(--color-danger);
+  font-size: var(--text-sm);
+  margin-top: var(--space-2);
 }

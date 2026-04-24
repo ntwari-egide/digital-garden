@@ -1,6 +1,10 @@
 import express from 'express'
 import cors from 'cors'
 import 'dotenv/config'
+import { fileURLToPath } from 'url'
+import path from 'path'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 import authRouter     from './routes/auth.js'
 import postsRouter    from './routes/posts.js'
@@ -11,6 +15,7 @@ const app = express()
 app.set('port', process.env.PORT || 3000)
 app.use(express.json())
 app.use(cors())
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 app.use('/auth',     authRouter)
 app.use('/posts',    postsRouter)

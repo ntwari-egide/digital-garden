@@ -1,0 +1,47 @@
+.feed-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.feed-content {
+  max-width: 680px;
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-6) var(--space-16);
+  flex: 1;
+}
+
+/* Seasonal greeting strip */
+.feed-greeting {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  padding: var(--space-3) var(--space-5);
+  background: var(--color-accent-light);
+  border: 1px solid #c0d9c4;
+  border-radius: var(--radius);
+  color: var(--color-accent-hover);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-sm);
+}
+.feed-greeting-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.feed-loading {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-family: var(--font-display);
+  font-style: italic;
+  padding: var(--space-12) 0;
+}
+
+.feed-error {
+  text-align: center;
+  color: var(--color-danger);
+  padding: var(--space-8) 0;
+}
