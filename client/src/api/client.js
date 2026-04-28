@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3000'
+const BASE_URL = 'https://digital-garden-api.up.railway.app'
 
 export async function apiFetch(path, options = {}) {
   const token = localStorage.getItem('token')
