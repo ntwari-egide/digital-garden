@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Leaf, MessageCircle, Trash2 } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
 import { apiFetch } from '../../api/client'
@@ -19,6 +20,17 @@ function initials(name = '') {
 function parseTags(content = '') {
   const tags = content.match(/#([a-zA-Z0-9_]+)/g) || []
   return [...new Set(tags.map(t => t.slice(1)))]
+}
+
+function renderContent(content = '') {
+  const parts = content.split(/(#[a-zA-Z0-9_]+)/g)
+  return parts.map((part, i) => {
+    if (/^#[a-zA-Z0-9_]+$/.test(part)) {
+      const tag = part.slice(1)
+      return <Link key={i} to={`/tag/${tag}`} className="content-tag">{part}</Link>
+    }
+    return part
+  })
 }
 
 export default function PostCard({ post, liked, onLikeToggle, onDelete, onCommentAdded, onCommentDeleted }) {
@@ -50,7 +62,7 @@ export default function PostCard({ post, liked, onLikeToggle, onDelete, onCommen
       <div className="post-meta">
         <div className="post-avatar" aria-hidden="true">{initials(post.full_name)}</div>
         <div className="post-meta-text">
-          <span className="post-author">{post.full_name}</span>
+          <Link to={`/profile/${post.user_id}`} className="post-author">{post.full_name}</Link>
           <span className="post-time">{formatTime(post.created_at)}</span>
         </div>
         {(isOwner || isAdmin) && (
@@ -60,7 +72,7 @@ export default function PostCard({ post, liked, onLikeToggle, onDelete, onCommen
         )}
       </div>
 
-      <p className="post-content">{post.content}</p>
+      <p className="post-content">{renderContent(post.content)}</p>
 
       {post.image_url && (
         <div className="post-image-wrap">
@@ -71,7 +83,7 @@ export default function PostCard({ post, liked, onLikeToggle, onDelete, onCommen
       {tags.length > 0 && (
         <div className="note-tags">
           {tags.map(tag => (
-            <span key={tag} className="note-tag">#{tag}</span>
+            <Link key={tag} to={`/tag/${tag}`} className="note-tag">#{tag}</Link>
           ))}
         </div>
       )}
