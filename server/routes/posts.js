@@ -37,7 +37,7 @@ router.get('/', async (req, res) => {
   try {
     const result = await query(`
       SELECT
-        p.id, p.content, p.image_url, p.created_at,
+        p.id, p.title, p.content, p.image_url, p.created_at,
         u.id   AS user_id,
         u.full_name,
         COUNT(DISTINCT l.id)::int AS like_count,
@@ -58,22 +58,23 @@ router.get('/', async (req, res) => {
 // POST /posts — create a post (auth required), optional image upload
 router.post('/', requireAuth, upload.single('image'), async (req, res) => {
   const content = req.body.content || ''
+  const title = req.body.title || null
   if (!content || content.trim().length === 0) {
     if (req.file) fs.unlinkSync(req.file.path)
     return res.status(400).json({ error: 'Content is required' })
   }
-  if (content.length > 280) {
+  if (content.length > 2000) {
     if (req.file) fs.unlinkSync(req.file.path)
-    return res.status(400).json({ error: 'Content must be 280 characters or fewer' })
+    return res.status(400).json({ error: 'Content must be 2000 characters or fewer' })
   }
 
   const imageUrl = req.file ? `/uploads/${req.file.filename}` : null
 
   try {
     const result = await query(
-      `INSERT INTO posts (user_id, content, image_url) VALUES ($1, $2, $3)
-       RETURNING id, content, image_url, created_at, user_id`,
-      [req.user.id, content.trim(), imageUrl]
+      `INSERT INTO posts (user_id, title, content, image_url) VALUES ($1, $2, $3, $4)
+       RETURNING id, title, content, image_url, created_at, user_id`,
+      [req.user.id, title, content.trim(), imageUrl]
     )
     res.status(201).json(result.rows[0])
   } catch (err) {

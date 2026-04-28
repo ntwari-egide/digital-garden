@@ -76,7 +76,7 @@ export default function FeedPage() {
       <Navbar />
       <main className="feed-content">
         <PostForm onPostCreated={handlePostCreated} />
-        {loading && <p className="feed-loading">Loading posts…</p>}
+        {loading && <p className="feed-loading">Tending the garden…</p>}
         {error && <p className="feed-error">{error}</p>}
         {!loading && !error && (
           <PostList

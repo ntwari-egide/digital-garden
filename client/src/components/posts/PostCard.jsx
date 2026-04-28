@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Leaf, MessageCircle, Trash2 } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
 import { apiFetch } from '../../api/client'
 import CommentSection from '../comments/CommentSection'
@@ -15,6 +16,11 @@ function initials(name = '') {
   return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()
 }
 
+function parseTags(content = '') {
+  const tags = content.match(/#([a-zA-Z0-9_]+)/g) || []
+  return [...new Set(tags.map(t => t.slice(1)))]
+}
+
 export default function PostCard({ post, liked, onLikeToggle, onDelete, onCommentAdded, onCommentDeleted }) {
   const { user } = useAuth()
   const [commentsOpen, setCommentsOpen] = useState(false)
@@ -22,8 +28,10 @@ export default function PostCard({ post, liked, onLikeToggle, onDelete, onCommen
   const isOwner = user?.id === post.user_id
   const isAdmin = user?.role === 'admin'
 
+  const tags = parseTags(post.content)
+
   async function handleDelete() {
-    if (!window.confirm('Delete this post? This cannot be undone.')) return
+    if (!window.confirm('Remove this note from the garden? This cannot be undone.')) return
     try {
       const endpoint = isAdmin && !isOwner
         ? `/admin/posts/${post.id}`
@@ -37,6 +45,8 @@ export default function PostCard({ post, liked, onLikeToggle, onDelete, onCommen
 
   return (
     <article className="post-card">
+      {post.title && <h3 className="note-title">{post.title}</h3>}
+
       <div className="post-meta">
         <div className="post-avatar" aria-hidden="true">{initials(post.full_name)}</div>
         <div className="post-meta-text">
@@ -44,7 +54,9 @@ export default function PostCard({ post, liked, onLikeToggle, onDelete, onCommen
           <span className="post-time">{formatTime(post.created_at)}</span>
         </div>
         {(isOwner || isAdmin) && (
-          <button className="delete-post-btn" onClick={handleDelete} title="Delete post">✕</button>
+          <button className="delete-post-btn" onClick={handleDelete} title="Remove note">
+            <Trash2 size={14} strokeWidth={2} />
+          </button>
         )}
       </div>
 
@@ -52,7 +64,15 @@ export default function PostCard({ post, liked, onLikeToggle, onDelete, onCommen
 
       {post.image_url && (
         <div className="post-image-wrap">
-          <img src={`${API_BASE}${post.image_url}`} alt="post attachment" className="post-image" />
+          <img src={`${API_BASE}${post.image_url}`} alt="note attachment" className="post-image" />
+        </div>
+      )}
+
+      {tags.length > 0 && (
+        <div className="note-tags">
+          {tags.map(tag => (
+            <span key={tag} className="note-tag">#{tag}</span>
+          ))}
         </div>
       )}
 
@@ -60,15 +80,19 @@ export default function PostCard({ post, liked, onLikeToggle, onDelete, onCommen
         <button
           className={`like-btn${liked ? ' like-btn--active' : ''}`}
           onClick={() => onLikeToggle(post.id, liked)}
+          title="This resonated with me"
         >
-          ♥ {post.like_count}
+          <Leaf size={14} strokeWidth={2} fill={liked ? 'currentColor' : 'none'} />
+          {post.like_count > 0 && <span className="like-label">{post.like_count}</span>}
+          <span className="like-text">Resonated</span>
         </button>
 
         <button
           className={`comment-toggle-btn${commentsOpen ? ' comment-toggle-btn--active' : ''}`}
           onClick={() => setCommentsOpen(o => !o)}
         >
-          💬 {post.comment_count} {commentsOpen ? 'Hide' : 'Comments'}
+          <MessageCircle size={14} strokeWidth={2} />
+          {post.comment_count} {commentsOpen ? 'Hide' : 'Responses'}
         </button>
       </div>
 

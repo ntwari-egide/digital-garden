@@ -2,7 +2,7 @@ import PostCard from './PostCard'
 
 export default function PostList({ posts, likedPostIds, onLikeToggle, onDelete, onCommentAdded, onCommentDeleted }) {
   if (posts.length === 0) {
-    return <p className="post-list-empty">No posts yet. Be the first to share something.</p>
+    return <p className="post-list-empty">The garden is empty. Plant the first note.</p>
   }
 
   return (

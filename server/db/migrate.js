@@ -24,6 +24,11 @@ async function migrate() {
   `)
   console.log('posts table ready')
 
+  await query(`ALTER TABLE posts ADD COLUMN IF NOT EXISTS title VARCHAR(255)`)
+  await query(`ALTER TABLE posts ADD COLUMN IF NOT EXISTS image_url TEXT`)
+  await query(`ALTER TABLE posts ALTER COLUMN content TYPE VARCHAR(2000)`)
+  console.log('posts columns updated')
+
   await query(`
     CREATE TABLE IF NOT EXISTS comments (
       id         SERIAL PRIMARY KEY,
@@ -34,6 +39,9 @@ async function migrate() {
     )
   `)
   console.log('comments table ready')
+
+  await query(`ALTER TABLE comments ADD COLUMN IF NOT EXISTS parent_id INTEGER REFERENCES comments(id) ON DELETE SET NULL`)
+  console.log('comments parent_id column updated')
 
   await query(`
     CREATE TABLE IF NOT EXISTS likes (
