@@ -1,12 +1,16 @@
+// This file handles user profile pages
+// It returns profile stats (post count, total likes) and a user's posts
+
 import { Router } from 'express'
 import { query } from '../db/postgres.js'
 import { requireAuth } from '../middleware/auth.js'
 
 const router = Router()
 
-// GET /users/:id — profile stats
+// GET /users/:id — get profile stats for a user
 router.get('/:id', requireAuth, async (req, res) => {
   try {
+    // Get the user's name, how many posts they made, and how many likes they got
     const result = await query(`
       SELECT u.id, u.full_name,
         COUNT(DISTINCT p.id)::int AS post_count,
@@ -18,18 +22,22 @@ router.get('/:id', requireAuth, async (req, res) => {
       GROUP BY u.id, u.full_name
     `, [req.params.id])
 
+    // If no user was found, return a 404 error
     if (result.rows.length === 0) {
       return res.status(404).json({ error: 'User not found' })
     }
+
     res.json(result.rows[0])
   } catch (err) {
+    console.log('Error fetching user profile:', err)
     res.status(500).json({ error: 'Failed to fetch user profile' })
   }
 })
 
-// GET /users/:id/posts — all posts by user
+// GET /users/:id/posts — get all posts made by a specific user
 router.get('/:id/posts', requireAuth, async (req, res) => {
   try {
+    // Get all posts by this user with like and comment counts
     const result = await query(`
       SELECT
         p.id, p.title, p.content, p.image_url, p.created_at,
@@ -48,6 +56,7 @@ router.get('/:id/posts', requireAuth, async (req, res) => {
 
     res.json(result.rows)
   } catch (err) {
+    console.log('Error fetching user posts:', err)
     res.status(500).json({ error: 'Failed to fetch user posts' })
   }
 })
