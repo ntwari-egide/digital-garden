@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { Leaf } from 'lucide-react'
 import { apiFetch } from '../api/client'
 import { useAuth } from '../context/AuthContext'
 import '../styles/auth.css'
@@ -35,7 +36,7 @@ export default function RegisterPage() {
     <div className="auth-page">
       <div className="auth-card">
         <div className="auth-card-header">
-          <h1><span className="auth-logo-leaf">🌿</span>The Digital Garden</h1>
+          <h1><Leaf size={22} strokeWidth={1.5} className="auth-logo-leaf" />The Digital Garden</h1>
           <p className="auth-subtitle">Plant your first seed — create an account</p>
         </div>
 

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { CornerDownRight, Trash2 } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
 import { apiFetch } from '../../api/client'
 import CommentForm from './CommentForm'
@@ -54,11 +55,15 @@ export default function CommentItem({ comment, postId, replies = [], onDelete, o
           {/* Only allow one level of nesting */}
           {depth === 0 && (
             <button className="comment-reply-btn" onClick={() => setReplyOpen(o => !o)}>
+              <CornerDownRight size={12} strokeWidth={2} />
               {replyOpen ? 'Cancel' : 'Reply'}
             </button>
           )}
           {(isOwner || isAdmin) && (
-            <button className="comment-delete-btn" onClick={handleDelete}>Delete</button>
+            <button className="comment-delete-btn" onClick={handleDelete}>
+              <Trash2 size={12} strokeWidth={2} />
+              Delete
+            </button>
           )}
         </div>
 

@@ -126,6 +126,9 @@
   transition: color 0.12s;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 3px;
 }
 .comment-reply-btn:hover { color: var(--color-accent); }
 
@@ -139,6 +142,9 @@
   transition: color 0.12s;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 3px;
 }
 .comment-delete-btn:hover { color: var(--color-danger); }
 
