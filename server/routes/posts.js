@@ -32,9 +32,10 @@ const upload = multer({
 
 const router = Router()
 
-// GET /posts — all posts, newest first (public)
+// GET /posts — all posts, newest first (public); optional ?tag= to filter by hashtag
 router.get('/', async (req, res) => {
   try {
+    const tag = req.query.tag || null
     const result = await query(`
       SELECT
         p.id, p.title, p.content, p.image_url, p.created_at,
@@ -46,9 +47,10 @@ router.get('/', async (req, res) => {
       JOIN users u ON u.id = p.user_id
       LEFT JOIN likes    l ON l.post_id = p.id
       LEFT JOIN comments c ON c.post_id = p.id
+      WHERE ($1::text IS NULL OR p.content ~* ('(^|[^a-zA-Z0-9_])#' || $1 || '([^a-zA-Z0-9_]|$)'))
       GROUP BY p.id, u.id
       ORDER BY p.created_at DESC
-    `)
+    `, [tag])
     res.json(result.rows)
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch posts' })
