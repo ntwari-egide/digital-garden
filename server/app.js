@@ -10,6 +10,8 @@ import authRouter     from './routes/auth.js'
 import postsRouter    from './routes/posts.js'
 import commentsRouter from './routes/comments.js'
 import adminRouter    from './routes/admin.js'
+import usersRouter    from './routes/users.js'
+import searchRouter   from './routes/search.js'
 
 const app = express()
 app.set('port', process.env.PORT || 3000)
@@ -21,6 +23,8 @@ app.use('/auth',     authRouter)
 app.use('/posts',    postsRouter)
 app.use('/comments', commentsRouter)
 app.use('/admin',    adminRouter)
+app.use('/users',    usersRouter)
+app.use('/search',   searchRouter)
 
 app.get('/', (req, res) => {
   res.send('Welcome to The Digital Garden API')

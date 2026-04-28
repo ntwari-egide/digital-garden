@@ -4,6 +4,9 @@ import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import FeedPage from './pages/FeedPage'
 import AdminPage from './pages/AdminPage'
+import ProfilePage from './pages/ProfilePage'
+import TagFeedPage from './pages/TagFeedPage'
+import SearchPage from './pages/SearchPage'
 
 export default function App() {
   return (
@@ -13,6 +16,9 @@ export default function App() {
 
       <Route element={<ProtectedRoute />}>
         <Route path="/" element={<FeedPage />} />
+        <Route path="/profile/:userId" element={<ProfilePage />} />
+        <Route path="/tag/:tagname" element={<TagFeedPage />} />
+        <Route path="/search" element={<SearchPage />} />
       </Route>
 
       <Route element={<ProtectedRoute adminOnly />}>
