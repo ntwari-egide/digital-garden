@@ -124,7 +124,7 @@ export default function PostCard({ post, liked, onLikeToggle, onDelete, onCommen
       {/* Show the attached image if there is one */}
       {post.image_url && (
         <div className="post-image-wrap">
-          <img src={`${API_BASE}${post.image_url}`} alt="note attachment" className="post-image" />
+          <img src={post.image_url.startsWith('http') ? post.image_url : `${API_BASE}${post.image_url}`} alt="note attachment" className="post-image" />
         </div>
       )}
 
