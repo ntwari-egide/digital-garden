@@ -6,20 +6,20 @@ function hash(plain) {
   return bcrypt.hashSync(plain, 10)
 }
 
-// Direct picsum URLs — work anywhere, no local files needed
+// Pexels CDN — free, reliable, no auth needed for embedding
 const IMG = {
-  forest:   'https://fastly.picsum.photos/id/10/900/600.jpg?hmac=1_4TCrTlQTgBCrgxLSQpuF63lM9EMFZM7OPzMSNFbgE',
-  path:     'https://fastly.picsum.photos/id/48/900/600.jpg?hmac=N5PW1XEsGfRPGJM0pY0P3JBGXWLBP3BLLT9FGsJGss',
-  mountain: 'https://fastly.picsum.photos/id/29/900/600.jpg?hmac=Qi_aBDe-9C33rCBxmH8hvgpHkj28l5C5D67gvL6n4p0',
-  sunrise:  'https://fastly.picsum.photos/id/110/900/600.jpg?hmac=h9t5mNLEfTScV2YEDdVMy5MDaAQ4fGKIBHdBOmFEz1c',
-  sunset:   'https://fastly.picsum.photos/id/162/900/600.jpg?hmac=8Y-Gp0b8vg0y0vNi8Jzz0Wn3j1vRgJm2-DJMG_KzPM',
-  water:    'https://fastly.picsum.photos/id/28/900/600.jpg?hmac=VGNn8Oew5n9TMO2w04D-pXdD0qh6hPi6U7MuFO-SFFE',
-  garden:   'https://fastly.picsum.photos/id/164/900/600.jpg?hmac=FjP2UeI53M2x2d1ESSilqmHdS2IwS0H9N2IM8VsHaFk',
-  field:    'https://fastly.picsum.photos/id/190/900/600.jpg?hmac=kj2bBFJ60FfhMoqZxO7tgCfm_t4J7kCKyEy3UhTvz2k',
-  lake:     'https://fastly.picsum.photos/id/430/900/600.jpg?hmac=4ILxf__w7JvyMdxTl0bFsOq8vXG4sJDXOtFJvfXXuTk',
-  sky:      'https://fastly.picsum.photos/id/292/900/600.jpg?hmac=rCKsq0dxijXFsXRzA4UcVE0AxhbmGTnx3Bvj-3CwHjA',
-  leaves:   'https://fastly.picsum.photos/id/145/900/600.jpg?hmac=MH9tWF5jCOZh4MEFxVGE91y5lPEXa3kU2VRrkCDqY0s',
-  rain:     'https://fastly.picsum.photos/id/137/900/600.jpg?hmac=gKVoRHOuiRIScBoovIq5XP_OJLdh0p6Mra5aJqm9Kow',
+  forest:   'https://images.pexels.com/photos/167698/pexels-photo-167698.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750',
+  path:     'https://images.pexels.com/photos/1179229/pexels-photo-1179229.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750',
+  mountain: 'https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750',
+  sunrise:  'https://images.pexels.com/photos/1525041/pexels-photo-1525041.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750',
+  sunset:   'https://images.pexels.com/photos/1287145/pexels-photo-1287145.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750',
+  water:    'https://images.pexels.com/photos/247431/pexels-photo-247431.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750',
+  garden:   'https://images.pexels.com/photos/1146242/pexels-photo-1146242.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750',
+  field:    'https://images.pexels.com/photos/1237119/pexels-photo-1237119.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750',
+  lake:     'https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750',
+  sky:      'https://images.pexels.com/photos/281260/pexels-photo-281260.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750',
+  leaves:   'https://images.pexels.com/photos/1459505/pexels-photo-1459505.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750',
+  rain:     'https://images.pexels.com/photos/1530258/pexels-photo-1530258.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750',
 }
 
 async function addPost(user_id, title, content, image_url, created_at) {

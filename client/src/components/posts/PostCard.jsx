@@ -9,8 +9,7 @@ import { useAuth } from '../../context/AuthContext'
 import { apiFetch } from '../../api/client'
 import CommentSection from '../comments/CommentSection'
 
-// The base URL for loading images — needs to match where the server runs
-const API_BASE = 'http://localhost:3000'
+const API_BASE = 'https://digital-garden-api.up.railway.app'
 
 // Format a date string like "April 28, 2026"
 function formatTime(isoString) {
